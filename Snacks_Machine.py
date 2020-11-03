@@ -137,48 +137,46 @@ def gestion(ge,o):
             if(cg==0):
                 ingreso()
             else:    
-                fg=open("gestion.txt","a")
+                fg=open("gestion.txt","r")
                 fs=open("snacks.txt","r")
                 lines = fs.readlines()
+                lines2 = fg.readlines()
                 fs.close()
+                fg.close()
                 
-                fs=open("snacks.txt","r+")
-                c=1
+                fg=open("gestion.txt","a")
+                fs=open("snacks.txt","a")
+                c=0
+                
                 while (c!=cg):
-                    codigo_gestion=str(o)
-                    snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
-                    lineas=lines[int(snack_gestion)]
+                    gestion.codigo_gestion=str(o)
+                    gestion.snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
+                    lineas=lines[int(gestion.snack_gestion)]
+                    gestion.precio_gestion=lineas.split(",")[1]
+                    gestion.cantidad_gestion=lineas.split(",")[2]
+                    snacks.nombre_snack=lineas.split(",")[0]
+                    snacks.precio_snack=lineas.split(",")[1]
+                    snacks.cantidad_snack=lineas.split(",")[2]
                     
-                    print(snack_gestion)
-                    precio_gestion=lineas.split(",")[1]
-                    cantidad_gestion=lineas.split(",")[2]
                     del lines[int(o)]
-                    for line in lines:
-                      fg.write(codigo_gestion+"   ,"+snack_gestion+","+precio_gestion+","+cantidad_gestion+"\n")
+                    c=c+1
+                    for lin in lines2:
+                      fs.write(snacks.nombre_snack+","+snacks.precio_snack+","+(snacks.cantidad_snack-1)+"\n")  
+                      fg.write(gestion.codigo_gestion+"   ,"+gestion.snack_gestion+","+gestion.precio_gestion+","+gestion.cantidad_gestion+"\n")
                     else:
                         print("Error,Ingrese Nuevamente El Indice") 
                 fg.close()
                 fs.close()
-           
-       
-
-           
-           
-           
-                    
-            
             
         if(ge==3):
             exit
         
-            
-        
-            
+    
 
 def maquina(op):
     ges=0
     if(op==0):
-        print("╔═════════Menu═════════╗")
+        print("╔═════════"+"\033[;36m"+"Menu"+'\033[0;m'+"═════════╗")
         print("║ 1-Ingreso De Snacks  ║")
         print("║ 2-Egreso De Snacks   ║")
         print("║ 3-Ver Snacks         ║")
@@ -213,9 +211,9 @@ def maquina(op):
 
 def ingreso():
     opcion=1
-    print("Bienvenido A La Maquina De Snacks!!!")
+    print("\033[;33m"+"Bienvenido A La Maquina De Snacks!!!"+'\033[0;m')
     while ((opcion > 0)  and (opcion!= 0)):
-        print("Favor Ingrese Su Codigo Para Empezar")
+        print("\033[;36m"+"Favor Ingrese Su Codigo Para Empezar"+'\033[0;m')
         opcion = int(input("El Codigo Es Númerico Y Se Lo Tiene Que Proporcionar RR.HH: "))
         maquina(opcion)
     else:
