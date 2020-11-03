@@ -178,15 +178,15 @@ def gestion(ge,o):
 def maquina(op):
     ges=0
     if(op==0):
-        print("----------Menu----------")
-        print("1-Ingreso De Snacks")
-        print("2-Egreso De Snacks")
-        print("3-Ver Snacks")
-        print("4-Ingreso De Codigos")
-        print("5-Eliminar De Codigos")
-        print("6-Ver Codigos")
-        print("7-Salir")
-        print("------------------------")
+        print("╔═════════Menu═════════╗")
+        print("║ 1-Ingreso De Snacks  ║")
+        print("║ 2-Egreso De Snacks   ║")
+        print("║ 3-Ver Snacks         ║")
+        print("║ 4-Ingreso De Codigos ║")
+        print("║ 5-Eliminar De Codigos║")
+        print("║ 6-Ver Codigos        ║")
+        print("║ 7-Salir              ║")
+        print("╚══════════════════════╝")
         ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
         gestion(ges,op)
         
@@ -200,11 +200,11 @@ def maquina(op):
             lini="{:4.3}".format(str(op))
             if(lin==lini):
                 print("linea encontrada")
-                print("----------Menu----------")
-                print("1-Snacks Para Llevar")
-                print("2-")
-                print("3-Salir")
-                print("------------------------")
+                print("╔══════════Menu═════════╗")
+                print("║ 1-Snacks Para Llevar  ║")
+                print("║ 2-                    ║")
+                print("║ 3-Salir               ║")
+                print("╚═══════════════════════╝")
                 ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
                 gestion(ges,op)
         else:
@@ -222,10 +222,10 @@ def ingreso():
         print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
         opcion=0
         print("Si Desea Salir Presione 'S' Sino Ingrese Otra Opcion:")
-        print("----------Menu----------")
-        print("1-Volver A El Menu Principal De Opciones")
-        print("2-Salir")
-        print("------------------------")
+        print("╔══════════════════Menu═════════════════════╗")
+        print("║ 1-Volver A El Menu Principal De Opciones  ║")
+        print("║ 2-Salir                                   ║")
+        print("╚═══════════════════════════════════════════╝")
         opcion = int(input("Ingrese La Opcion Deseada: "))
         if(opcion==1):
            ingreso()
