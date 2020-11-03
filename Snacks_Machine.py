@@ -6,14 +6,15 @@ class snacks:
     precio_snacks=""
     
 class ingreso:
+    codigo_ingreso=""
     nombre_ingreso=""
     apellido_ingreso=""
     dni_ingreso=""
-    codigo_ingreso=""
     permiso_ingreso=""
     
 class gestion:
-    nombre_gestion=""
+    codigo_gestion=""
+    snack_gestion=""
     precio_gestion=""
     cantidad_gestion=""
     
@@ -75,12 +76,12 @@ def gestion(ge,o):
         
        if(ge==4):
           f = open("ingreso.txt","a")
+          ingreso.codigo_ingreso= input(str("Ingrese El Codigo Del Usuario: "))
           ingreso.nombre_ingreso = input(str("Ingrese El Nombre Del Usuario: "))
           ingreso.apellido_ingreso = input(str("Ingrese El Apellido Del Usuario: "))
           ingreso.dni_ingreso = input(str("Ingrese El Dni Del Usuario: "))
-          ingreso.codigo_ingreso= input(str("Ingrese El Codigo Del Usuario: "))
           ingreso.permiso_ingreso=input(str("Ingrese El Permiso Del Usuario: "))
-          f.write(ingreso.nombre_ingreso+","+ingreso.apellido_ingreso+","+ingreso.dni_ingreso+","+ingreso.codigo_ingreso+","+ingreso.permiso_ingreso+"\n")
+          f.write(ingreso.codigo_ingreso+"   ,"+ingreso.nombre_ingreso+","+ingreso.apellido_ingreso+","+ingreso.dni_ingreso+","+ingreso.permiso_ingreso+"\n")
           print("Ingreso Exitoso")
           f.close()
         
@@ -97,7 +98,7 @@ def gestion(ge,o):
            lines = f.readlines()
            f.close()
        
-           lineas= input("Ingrese El Nombre Del Usuario A Borrar!!: ")
+           lineas= input("Ingrese El Codigo Del Usuario A Borrar!!: ")
            del lines[int(lineas)]
            f = open("ingreso.txt","w")
            for line in lines:
@@ -125,16 +126,51 @@ def gestion(ge,o):
             print("-----------Snacks------------")
             print("---Snack--Precio--Cantidad---")
             f = open("snacks.txt")
-            i = 1
+            i = 0
             for linea in f:
                linea = linea.rstrip("\\n")
                print(" %4d: %s" %(i, linea))
                i+=1
             f.close()
             print("-----------------------------") 
-        cg=input(str("Ingrese La Cantidad De Snacks A Llevar: "))
-        f=open("snacks.txt","r")
-        for cant in cg:
+            cg=input("Ingrese La Cantidad De Snacks A Llevar: ")
+            if(cg==0):
+                ingreso()
+            else:    
+                fg=open("gestion.txt","a")
+                fs=open("snacks.txt","r")
+                lines = fs.readlines()
+                fs.close()
+                
+                fs=open("snacks.txt","r+")
+                c=1
+                while (c!=cg):
+                    codigo_gestion=str(o)
+                    snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
+                    lineas=lines[int(snack_gestion)]
+                    
+                    print(snack_gestion)
+                    precio_gestion=lineas.split(",")[1]
+                    cantidad_gestion=lineas.split(",")[2]
+                    del lines[int(o)]
+                    for line in lines:
+                      fg.write(codigo_gestion+"   ,"+snack_gestion+","+precio_gestion+","+cantidad_gestion+"\n")
+                    else:
+                        print("Error,Ingrese Nuevamente El Indice") 
+                fg.close()
+                fs.close()
+           
+       
+
+           
+           
+           
+                    
+            
+            
+        if(ge==3):
+            exit
+        
             
         
             
@@ -153,14 +189,27 @@ def maquina(op):
         print("------------------------")
         ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
         gestion(ges,op)
+        
     elif(op>0):
-        print("----------Menu----------")
-        print("1-Snacks Para Llevar")
-        print("2-")
-        print("3-Salir")
-        print("------------------------")
-        ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
-        gestion(ges,op)
+        f=open("ingreso.txt","r")
+        lines = f.readlines()
+        f.close()
+        
+        for line in lines:
+            lin="{:4.3}".format(line)
+            lini="{:4.3}".format(str(op))
+            if(lin==lini):
+                print("linea encontrada")
+                print("----------Menu----------")
+                print("1-Snacks Para Llevar")
+                print("2-")
+                print("3-Salir")
+                print("------------------------")
+                ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
+                gestion(ges,op)
+        else:
+            print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
+            
 
 def ingreso():
     opcion=1
