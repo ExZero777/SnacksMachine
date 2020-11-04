@@ -1,5 +1,8 @@
+# El siguiente trabajo es un software que se encarga del funcionamiento de una máquina expendedora de snacks, con funciones extra
+# como la administración de stock de la máquina, ingreso de usuarios con sus respectivos permisos e impresión de subtotales
+# y totales consumidos por el usuario 
 
-
+# Se crean las estructuras de registro para snacks, ingreso, gestión y totales
 class snacks:
     nombre_snacks=""
     cantidad_snacks=""
@@ -30,6 +33,7 @@ class totales:
 
 def gestion(ge,o):
     if(o==0):
+       # El usuario admin genera un ingreso del nuevo snack, con precio y cantidad disponible
        if(ge==1):
           f = open("snacks.txt","a")
           snacks.nombre_snacks = input(str("Ingrese El Nuevo Snack: "))
@@ -38,7 +42,8 @@ def gestion(ge,o):
           f.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
           print("Ingreso Exitoso")
           f.close()
-        
+    
+       # Se abre el archivo snacks.txt y el usuario admin puede eliminar cantidad de snack disponibles
        if(ge==2):
           f = open("snacks.txt","r")
           i = 0   
@@ -62,9 +67,10 @@ def gestion(ge,o):
              print("Error,Ingrese Nuevamente El Indice") 
           f.close()
        
-               
+       #El usuario admin puede ingresar y ver el listado de snacks existentes          
        if(ge==3):
-          print("Lista De Snacks") 
+          print("\033[1;35m"+"\n  -----"+'\033[0m'+'\033[1m'+"Lista De Snacks"+'\033[0m'+"\033[1;35m"+"-----"+'\033[0m')
+          print("\033[;35m"+"       ═════ ══ ══════     "+'\033[0;m')
           f = open("snacks.txt")
           i = 1
           for linea in f:
@@ -73,7 +79,7 @@ def gestion(ge,o):
               i+=1
           f.close()
                   
-        
+       #El usuario admin abre el archivo ingreso.txt y se le permite ingresar un nuevo usuario al mismo
        if(ge==4):
           f = open("ingreso.txt","a")
           ingreso.codigo_ingreso= input(str("Ingrese El Codigo Del Usuario: "))
@@ -85,6 +91,7 @@ def gestion(ge,o):
           print("Ingreso Exitoso")
           f.close()
         
+       #Le permite al usuario admin borrar un usuario del listado 
        if(ge==5):
            f = open("ingreso.txt","r")
            i = 0   
@@ -108,8 +115,10 @@ def gestion(ge,o):
               print("Error,Ingrese Nuevamente El Indice") 
            f.close()
 
+       #Le permite al usuario admin ver el listado de los usuarios existentes
        if(ge==6):
-           print("Lista De Usuarios") 
+           print("\033[1;35m"+"\n\t-----"+'\033[0m'+'\033[1m'+"Lista De Usuarios"+'\033[0m'+"\033[1;35m"+"-----"+'\033[0m')
+           print("\033[;35m"+"\t     ═════ ══ ════════     "+'\033[0;m')
            f = open("ingreso.txt")
            i = 1
            for linea in f:
@@ -120,7 +129,8 @@ def gestion(ge,o):
        if(ge==7):
             exit
         
-
+    # Se crea un menú que le permite al usuario (cliente) ver el listado de snacks disponibles
+    # y que luego seleccione el snack que desee llevar
     elif(o>0):
         if(ge==1):
             print("-----------Snacks------------")
@@ -173,21 +183,25 @@ def gestion(ge,o):
         
     
 
-def maquina(op):
+# Ingreso a menú de gestión o al menú para el usuario
+def maquina(op): 
     ges=0
+    # Se crea un menú para que el usuario admin pueda gestionar tanto los snacks
+    # como también los códigos de accesso
     if(op==0):
-        print("╔═════════"+"\033[;36m"+"Menu"+'\033[0;m'+"═════════╗")
-        print("║ 1-Ingreso De Snacks  ║")
-        print("║ 2-Egreso De Snacks   ║")
-        print("║ 3-Ver Snacks         ║")
-        print("║ 4-Ingreso De Codigos ║")
-        print("║ 5-Eliminar De Codigos║")
-        print("║ 6-Ver Codigos        ║")
-        print("║ 7-Salir              ║")
-        print("╚══════════════════════╝")
+        print("\033[0;35m"+"╔═════════"+'\033[0;m'+"Menu"+"\033[0;35m"+"═════════╗")
+        print("║"+"\033[0;36m"+" 1-Ingreso De Snacks  "+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 2-Egreso De Snacks   "+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 3-Ver Snacks         "+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 4-Ingreso De Codigos "+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 5-Eliminar De Codigos"+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 6-Ver Codigos        "+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 7-Salir              "+'\033[0;m'+"\033[0;35m"+"║")
+        print("╚══════════════════════╝"+'\033[0;m')
         ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
         gestion(ges,op)
-        
+
+    # Se crea un menú para que el usuario ingrese al listado de snacks disponibles
     elif(op>0):
         f=open("ingreso.txt","r")
         lines = f.readlines()
@@ -198,20 +212,25 @@ def maquina(op):
             lini="{:4.3}".format(str(op))
             if(lin==lini):
                 print("linea encontrada")
-                print("╔══════════Menu═════════╗")
-                print("║ 1-Snacks Para Llevar  ║")
-                print("║ 2-                    ║")
-                print("║ 3-Salir               ║")
-                print("╚═══════════════════════╝")
+                print("\033[0;35m"+"╔══════════"+'\033[0;m'+"Menu"+"\033[0;35m"+"═════════╗")
+                print("║"+"\033[0;36m"+" 1-Snacks Para Llevar  "+'\033[0;m'+"\033[0;35m"+"║")  
+                print("║"+'\033[0;m'+"\033[0;36m"+" 2-                    "+'\033[0;m'+"\033[0;35m"+"║")
+                print("║"+'\033[0;m'+"\033[0;36m"+" 3-Salir               "+'\033[0;m'+"\033[0;35m"+"║")
+                print("╚═══════════════════════╝"+'\033[0;m')
                 ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
                 gestion(ges,op)
         else:
             print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
-            
-
+         
+         
+# Se crea el menú inicial que permite ingresar un código, el cual define si el usuario
+# entra en modo gestión como admin o como cliente para retirar un snack
 def ingreso():
     opcion=1
-    print("\033[;33m"+"Bienvenido A La Maquina De Snacks!!!"+'\033[0;m')
+    print("▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓")
+    print("\033[1;31m"+"-----Bienvenido A La Maquina De Snacks!!-----"+'\033[0;m')
+    print("▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓")
+    print("\n")
     while ((opcion > 0)  and (opcion!= 0)):
         print("\033[;36m"+"Favor Ingrese Su Codigo Para Empezar"+'\033[0;m')
         opcion = int(input("El Codigo Es Númerico Y Se Lo Tiene Que Proporcionar RR.HH: "))
@@ -220,10 +239,10 @@ def ingreso():
         print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
         opcion=0
         print("Si Desea Salir Presione 'S' Sino Ingrese Otra Opcion:")
-        print("╔══════════════════Menu═════════════════════╗")
-        print("║ 1-Volver A El Menu Principal De Opciones  ║")
-        print("║ 2-Salir                                   ║")
-        print("╚═══════════════════════════════════════════╝")
+        print("\033[0;35m"+"╔══════════════════"+'\033[0;m'+"Menu"+"\033[0;35m"+"═════════════════════╗")
+        print("║"+"\033[0;36m"+" 1-Volver Al Menu Principal De Opciones    "+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+'\033[0;m'+"\033[0;36m"+" 2-Salir                                   "+'\033[0;m'+"\033[0;35m"+"║")
+        print("╚═══════════════════════════════════════════╝"+'\033[0;m')
         opcion = int(input("Ingrese La Opcion Deseada: "))
         if(opcion==1):
            ingreso()
