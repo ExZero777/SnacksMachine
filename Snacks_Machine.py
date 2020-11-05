@@ -53,8 +53,8 @@ def totales(opci):
     precio=0
     totales=0
     for lin in lineas2:
-       precio=precio+float(lineas2.split(",")[2])
-       cantidad=cantidad+int(lineas2.split(",")[3])
+       precio=float(lineas2.split(",")[2])
+       cantidad=int(lineas2.split(",")[3])
     
     
     
@@ -203,35 +203,23 @@ def gestion(ge,o):
                     gestion.snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
                     lineas=lines[int(gestion.snack_gestion)]
                     gestion.precio_gestion=lineas.split(",")[1]
-                    print(gestion.precio_gestion)
                     gestion.cantidad_gestion="1"
-                    print(gestion.cantidad_gestion)
-                    
                     snacks.nombre_snacks=lineas.split(",")[0]
-                    print(snacks.nombre_snacks)
                     snacks.precio_snacks=lineas.split(",")[1]
-                    print(snacks.precio_snacks)
                     snacks.cantidad_snacks=lineas.split(",")[2]
                     snacks.cantidad_snacks=int(snacks.cantidad_snacks)-1
                     snacks.cantidad_snacks=str(snacks.cantidad_snacks)
-                    print(snacks.cantidad_snacks)
-                    
                     del lines[int(gestion.snack_gestion)]
-                    print(lines)
-                    print("borrado existoso")
                     fs.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
                     for lin in lines:
                        fs.write(lin)
-                       print("regrabado tambien")
                     fs.close()  
-                    
                     fg.write(gestion.codigo_gestion+","+gestion.snack_gestion+","+gestion.precio_gestion+","+gestion.cantidad_gestion+"\n")
                     fg.close()   
-                    print("recontra regrabado")
-                    c=1
+                    c+=1
                 else:
                     print("Error,Ingrese Nuevamente El Indice") 
-               
+                
         totales(o)
             
         if(ge==3):
