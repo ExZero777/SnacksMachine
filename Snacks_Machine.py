@@ -216,12 +216,11 @@ def gestion(ge,o):
                     snacks.cantidad_snacks=str(snacks.cantidad_snacks)
                     print(snacks.cantidad_snacks)
                     
-                    #del lines[int(o)]
-
+                    del lines[int(gestion.snack_gestion)]
+                    print(lines)
                     print("borrado existoso")
-                    
+                    fs.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
                     for lin in lines:
-                       # fs.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
                        fs.write(lin)
                        print("regrabado tambien")
                     fs.close()  
