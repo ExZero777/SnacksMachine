@@ -142,9 +142,9 @@ def gestion(ge,o):
                print(" %4d: %s" %(i, linea))
                i+=1
             f.close()
-            print("-----------------------------") 
+            print("-----------------------------")
             cg=input("Ingrese La Cantidad De Snacks A Llevar: ")
-            if(cg==0):
+            if(cg==0 or cg==""):
                 ingreso()
             else:    
                 fg=open("gestion.txt","r")
