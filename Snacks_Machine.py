@@ -1,7 +1,7 @@
 # El siguiente trabajo es un software que se encarga del funcionamiento de una máquina expendedora de snacks, con funciones extra
 # como la administración de stock de la máquina, ingreso de usuarios con sus respectivos permisos e impresión de subtotales
 # y totales consumidos por el usuario 
-
+import time
 # Se crean las estructuras de registro para snacks, ingreso, gestión y totales
 class snacks:
     nombre_snacks=""
@@ -26,10 +26,51 @@ class totales:
     fecha_totales=""
     horario_totales=""
     gestion_totales=""
-    subtotal_totales=""
     total_totales=""
     
-
+    
+    
+def totales(opci):
+    ft=open("totales.txt","r")
+    line=ft.readlines()
+    ft.close()
+    fg=open("gestion.txt","r")
+    line2=fg.readlines()
+    fg.close()
+    
+    ft=open("totales.txt","a")
+    fg=open("gestion.txt","a")
+    
+    print(opci)
+    
+    codigo_totales=str(opci)
+    fecha_totales=time.strftime("%x")
+    horario_totales=time.strftime("%X")
+    gestion_totales=gestion.codigo_gestion
+    lineas2=line2[int(opci)]
+    print(lineas2)
+    cantidad=0
+    precio=0
+    totales=0
+    for lin in lineas2:
+       precio=precio+float(lineas2.split(",")[2])
+       cantidad=cantidad+int(lineas2.split(",")[3])
+    
+    
+    
+    
+    
+    print("Ticket, Imprimiendo.....")
+    print(codigo_totales)
+    print(fecha_totales)
+    print(horario_totales)
+    print(gestion_totales)
+    print(cantidad)
+    print(precio)
+    
+    ft.close()
+    fg.close()
+    
 
 def gestion(ge,o):
     if(o==0):
@@ -52,7 +93,7 @@ def gestion(ge,o):
              print(" %4d: %s" %(i, values))
              i+=1
           f.close()
-        
+          
           f = open("snacks.txt","r")
           lines = f.readlines()
           f.close()
@@ -144,39 +185,55 @@ def gestion(ge,o):
             f.close()
             print("-----------------------------")
             cg=input("Ingrese La Cantidad De Snacks A Llevar: ")
-            if(cg==0 or cg==""):
+            if(cg=="0" or cg==""):
                 ingreso()
             else:    
-                fg=open("gestion.txt","r")
                 fs=open("snacks.txt","r")
+                fg=open("gestion.txt","r")
                 lines = fs.readlines()
                 lines2 = fg.readlines()
                 fs.close()
                 fg.close()
                 
-                fg=open("gestion.txt","a")
-                fs=open("snacks.txt","a")
+                fg=open("gestion.txt","a+")
+                fs=open("snacks.txt","w")
                 c=0
-                
-                while (c!=cg):
+                while (c!=1):
                     gestion.codigo_gestion=str(o)
                     gestion.snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
                     lineas=lines[int(gestion.snack_gestion)]
                     gestion.precio_gestion=lineas.split(",")[1]
-                    gestion.cantidad_gestion=lineas.split(",")[2]
-                    snacks.nombre_snack=lineas.split(",")[0]
-                    snacks.precio_snack=lineas.split(",")[1]
-                    snacks.cantidad_snack=lineas.split(",")[2]
+                    print(gestion.precio_gestion)
+                    gestion.cantidad_gestion="1"
+                    print(gestion.cantidad_gestion)
                     
-                    del lines[int(o)]
-                    c=c+1
-                    for lin in lines2:
-                      fs.write(snacks.nombre_snack+","+snacks.precio_snack+","+(snacks.cantidad_snack-1)+"\n")  
-                      fg.write(gestion.codigo_gestion+"   ,"+gestion.snack_gestion+","+gestion.precio_gestion+","+gestion.cantidad_gestion+"\n")
-                    else:
-                        print("Error,Ingrese Nuevamente El Indice") 
-                fg.close()
-                fs.close()
+                    snacks.nombre_snacks=lineas.split(",")[0]
+                    print(snacks.nombre_snacks)
+                    snacks.precio_snacks=lineas.split(",")[1]
+                    print(snacks.precio_snacks)
+                    snacks.cantidad_snacks=lineas.split(",")[2]
+                    snacks.cantidad_snacks=int(snacks.cantidad_snacks)-1
+                    snacks.cantidad_snacks=str(snacks.cantidad_snacks)
+                    print(snacks.cantidad_snacks)
+                    
+                    #del lines[int(o)]
+
+                    print("borrado existoso")
+                    
+                    for lin in lines:
+                       # fs.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
+                       fs.write(lin)
+                       print("regrabado tambien")
+                    fs.close()  
+                    
+                    fg.write(gestion.codigo_gestion+","+gestion.snack_gestion+","+gestion.precio_gestion+","+gestion.cantidad_gestion+"\n")
+                    fg.close()   
+                    print("recontra regrabado")
+                    c=1
+                else:
+                    print("Error,Ingrese Nuevamente El Indice") 
+               
+        totales(o)
             
         if(ge==3):
             exit
@@ -214,8 +271,7 @@ def maquina(op):
                 print("linea encontrada")
                 print("\033[0;35m"+"╔══════════"+'\033[0;m'+"Menu"+"\033[0;35m"+"═════════╗")
                 print("║"+"\033[0;36m"+" 1-Snacks Para Llevar  "+'\033[0;m'+"\033[0;35m"+"║")  
-                print("║"+'\033[0;m'+"\033[0;36m"+" 2-                    "+'\033[0;m'+"\033[0;35m"+"║")
-                print("║"+'\033[0;m'+"\033[0;36m"+" 3-Salir               "+'\033[0;m'+"\033[0;35m"+"║")
+                print("║"+'\033[0;m'+"\033[0;36m"+" 2-Salir               "+'\033[0;m'+"\033[0;35m"+"║")
                 print("╚═══════════════════════╝"+'\033[0;m')
                 ges=int(input("Favor De Ingresar Una Opcion Para Operar: "))
                 gestion(ges,op)
