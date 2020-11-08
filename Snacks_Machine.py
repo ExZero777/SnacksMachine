@@ -2,33 +2,35 @@
 # como la administración de stock de la máquina, ingreso de usuarios con sus respectivos permisos e impresión de subtotales
 # y totales consumidos por el usuario 
 import time
-# Se crean las estructuras de registro para snacks, ingreso, gestión y totales
-class snacks:
-    nombre_snacks=""
-    cantidad_snacks=""
-    precio_snacks=""
+# Se crean las estructuras de registro con listas para snacks, ingreso, gestión y totales
+nombre_snacks=""
+cantidad_snacks=""
+precio_snacks=""
+
+snacks = [nombre_snacks,cantidad_snacks,precio_snacks]    
     
-class ingreso:
-    codigo_ingreso=""
-    nombre_ingreso=""
-    apellido_ingreso=""
-    dni_ingreso=""
-    permiso_ingreso=""
+codigo_ingreso=""
+nombre_ingreso=""
+apellido_ingreso=""
+dni_ingreso=""
+permiso_ingreso=""
     
-class gestion:
-    codigo_gestion=""
-    snack_gestion=""
-    precio_gestion=""
-    cantidad_gestion=""
+ingreso = [codigo_ingreso,nombre_ingreso,apellido_ingreso,dni_ingreso,permiso_ingreso]    
+
+codigo_gestion=""
+snack_gestion=""
+precio_gestion=""
+cantidad_gestion=""
     
-class totales:
-    codigo_totales=""
-    fecha_totales=""
-    horario_totales=""
-    gestion_totales=""
-    total_totales=""
+gestion = [codigo_gestion,snack_gestion,precio_gestion,cantidad_gestion]   
+
+codigo_totales=""
+fecha_totales=""
+horario_totales=""
+gestion_totales=""
+total_totales=""
     
-    
+totales = [codigo_totales,fecha_totales,horario_totales,gestion_totales,total_totales]    
     
 def totales(opci):
     ft=open("totales.txt","r")
@@ -46,7 +48,7 @@ def totales(opci):
     codigo_totales=str(opci)
     fecha_totales=time.strftime("%x")
     horario_totales=time.strftime("%X")
-    gestion_totales=gestion.codigo_gestion
+    gestion_totales=codigo_gestion
     lineas2=line2[int(opci)]
     print(lineas2)
     cantidad=0
@@ -77,10 +79,10 @@ def gestion(ge,o):
        # El usuario admin genera un ingreso del nuevo snack, con precio y cantidad disponible
        if(ge==1):
           f = open("snacks.txt","a")
-          snacks.nombre_snacks = input(str("Ingrese El Nuevo Snack: "))
-          snacks.precio_snacks = input(str("Ingrese El Precio Del Snack: "))
-          snacks.cantidad_snacks= input(str("Ingrese La Cantidad Del Snack: "))
-          f.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
+          nombre_snacks = input(str("Ingrese El Nuevo Snack: "))
+          precio_snacks = input(str("Ingrese El Precio Del Snack: "))
+          cantidad_snacks= input(str("Ingrese La Cantidad Del Snack: "))
+          f.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
           print("Ingreso Exitoso")
           f.close()
     
@@ -123,12 +125,12 @@ def gestion(ge,o):
        #El usuario admin abre el archivo ingreso.txt y se le permite ingresar un nuevo usuario al mismo
        if(ge==4):
           f = open("ingreso.txt","a")
-          ingreso.codigo_ingreso= input(str("Ingrese El Codigo Del Usuario: "))
-          ingreso.nombre_ingreso = input(str("Ingrese El Nombre Del Usuario: "))
-          ingreso.apellido_ingreso = input(str("Ingrese El Apellido Del Usuario: "))
-          ingreso.dni_ingreso = input(str("Ingrese El Dni Del Usuario: "))
-          ingreso.permiso_ingreso=input(str("Ingrese El Permiso Del Usuario: "))
-          f.write(ingreso.codigo_ingreso+"   ,"+ingreso.nombre_ingreso+","+ingreso.apellido_ingreso+","+ingreso.dni_ingreso+","+ingreso.permiso_ingreso+"\n")
+          codigo_ingreso= input(str("Ingrese El Codigo Del Usuario: "))
+          nombre_ingreso = input(str("Ingrese El Nombre Del Usuario: "))
+          apellido_ingreso = input(str("Ingrese El Apellido Del Usuario: "))
+          dni_ingreso = input(str("Ingrese El Dni Del Usuario: "))
+          permiso_ingreso=input(str("Ingrese El Permiso Del Usuario: "))
+          f.write(codigo_ingreso+","+nombre_ingreso+","+apellido_ingreso+","+dni_ingreso+","+permiso_ingreso+"\n")
           print("Ingreso Exitoso")
           f.close()
         
@@ -168,7 +170,7 @@ def gestion(ge,o):
                i+=1
            f.close()
        if(ge==7):
-            exit
+            main()
         
     # Se crea un menú que le permite al usuario (cliente) ver el listado de snacks disponibles
     # y que luego seleccione el snack que desee llevar
@@ -199,31 +201,31 @@ def gestion(ge,o):
                 fs=open("snacks.txt","w")
                 c=0
                 while (c!=1):
-                    gestion.codigo_gestion=str(o)
-                    gestion.snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
-                    lineas=lines[int(gestion.snack_gestion)]
-                    gestion.precio_gestion=lineas.split(",")[1]
-                    gestion.cantidad_gestion="1"
-                    snacks.nombre_snacks=lineas.split(",")[0]
-                    snacks.precio_snacks=lineas.split(",")[1]
-                    snacks.cantidad_snacks=lineas.split(",")[2]
-                    snacks.cantidad_snacks=int(snacks.cantidad_snacks)-1
-                    snacks.cantidad_snacks=str(snacks.cantidad_snacks)
-                    del lines[int(gestion.snack_gestion)]
-                    fs.write(snacks.nombre_snacks+","+snacks.precio_snacks+","+snacks.cantidad_snacks+"\n")
+                    codigo_gestion=str(o)
+                    snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
+                    lineas=lines[int(snack_gestion)]
+                    precio_gestion=lineas.split(",")[1]
+                    cantidad_gestion="1"
+                    nombre_snacks=lineas.split(",")[0]
+                    precio_snacks=lineas.split(",")[1]
+                    cantidad_snacks=lineas.split(",")[2]
+                    cantidad_snacks=int(cantidad_snacks)-1
+                    cantidad_snacks=str(cantidad_snacks)
+                    del lines[int(snack_gestion)]
+                    fs.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
                     for lin in lines:
                        fs.write(lin)
                     fs.close()  
-                    fg.write(gestion.codigo_gestion+","+gestion.snack_gestion+","+gestion.precio_gestion+","+gestion.cantidad_gestion+"\n")
+                    fg.write(codigo_gestion+","+snack_gestion+","+precio_gestion+","+cantidad_gestion+"\n")
                     fg.close()   
                     c+=1
                 else:
                     print("Error,Ingrese Nuevamente El Indice") 
                 
-        totales(o)
+        
             
-        if(ge==3):
-            exit
+        if(ge==2):
+            main()
         
     
 
@@ -268,7 +270,7 @@ def maquina(op):
          
 # Se crea el menú inicial que permite ingresar un código, el cual define si el usuario
 # entra en modo gestión como admin o como cliente para retirar un snack
-def ingreso():
+def main():
     opcion=1
     print("▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓░▓")
     print("\033[1;31m"+"-----Bienvenido A La Maquina De Snacks!!-----"+'\033[0;m')
@@ -288,9 +290,9 @@ def ingreso():
         print("╚═══════════════════════════════════════════╝"+'\033[0;m')
         opcion = int(input("Ingrese La Opcion Deseada: "))
         if(opcion==1):
-           ingreso()
+           main()
         else:
            print("Hasta Luego")
            exit()
  
-ingreso()
+main()
