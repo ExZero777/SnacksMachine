@@ -199,10 +199,10 @@ def gestion(ge,o):
                 fs.close()
                 fg.close()
                 
-                fg=open("gestion.txt","a+")
-                fs=open("snacks.txt","w")
                 c=0
-                while(c!=1):
+                while(c!=cg):
+                    fg=open("gestion.txt","a+")
+                    fs=open("snacks.txt","w")
                     codigo_gestion=str(o)
                     snack_gestion=input("Ingrese El Codigo Del Snack Que Desea: ")
                     lineas=lines[int(snack_gestion)]
@@ -211,19 +211,19 @@ def gestion(ge,o):
                     nombre_snacks=lineas.split(",")[0]
                     precio_snacks=lineas.split(",")[1]
                     cantidad_snacks=lineas.split(",")[2]
+                    print(cantidad_snacks)
                     cantidad_snacks=int(cantidad_snacks)-1
                     cantidad_snacks=str(cantidad_snacks)
                     del lines[int(snack_gestion)]
                     fs.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
                     for lin in lines:
-                       fs.write(lin)
+                       fs.writelines(lin)
                     fs.close()  
                     fg.write(codigo_gestion+","+snack_gestion+","+precio_gestion+","+cantidad_gestion+"\n")
                     fg.close()   
                     c+=1
                 else:
-                    print("Error,Ingrese Nuevamente El Indice") 
-            totales()    
+                    totales(o)    
         
             
         if(ge==2):
