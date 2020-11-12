@@ -1,3 +1,3 @@
-2,locou,mark,33.434.654,empleado
+2   ,locou,mark,33.434.654,empleado
 123 ,maki,tata,32.543.677,empleado
-5,frik,ara,45.123.987,empleado
+5   ,frik,ara,45.123.987,empleado

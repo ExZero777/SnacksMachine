@@ -171,7 +171,7 @@ def gestion(ge,o):
                  print(" %4d: %s" %(i, linea))
                  i+=1
              f.close()
-         if(ge==6): 
+         if(ge==7): 
              main()
         
     # Se crea un menú que le permite al usuario (cliente) ver el listado de snacks disponibles
