@@ -50,8 +50,8 @@ def totales(opci):
     codigo_totales=str(opci)
     fecha_totales=time.strftime("%x")
     horario_totales=time.strftime("%X")
-    gestion_totales=codigo_gestion
     lineas2=line2[int(opci)]
+    gestion_totales=lineas2.split(",")[0]
     print(lineas2)
     cantidad=0
     precio=0
@@ -60,10 +60,6 @@ def totales(opci):
        precio=float(lineas2.split(",")[2])
        cantidad=int(lineas2.split(",")[3])
     
-    
-    
-    
-    
     print("Ticket, Imprimiendo.....")
     print(codigo_totales)
     print(fecha_totales)
@@ -71,10 +67,11 @@ def totales(opci):
     print(gestion_totales)
     print(cantidad)
     print(precio)
-    
+    total_totales=cantidad*precio;
+    ft.write(codigo_totales+","+fecha_totales+","+horario_totales+","+gestion_totales+","+str(total_totales)+"\n")
     ft.close()
     fg.close()
-    
+    main()
 
 def gestion(ge,o):
     if(o==0):
@@ -102,8 +99,9 @@ def gestion(ge,o):
             lines = f.readlines()
             f.close()
         
-            lineas= input("Ingrese El Número De Snack A Borrar!!: ")
-            del lines[int(lineas)]
+            lineas= int(input("Ingrese El Número De Snack A Borrar!!: "))
+            #del lines[int(lineas)]
+            lines.pop(lineas)
             f = open("snacks.txt","w")
             for line in lines:
                 f.write(line)
@@ -119,7 +117,7 @@ def gestion(ge,o):
             f = open("snacks.txt")
             i = 1
             for linea in f:
-                linea = linea.rstrip("\\n")
+                linea = linea.split()
                 print(" %4d: %s" %(i, linea))
                 i+=1
             f.close()
@@ -151,7 +149,7 @@ def gestion(ge,o):
              f.close()
        
              lineas= input("Ingrese El Codigo Del Usuario A Borrar!!: ")
-             del lines[int(lineas)]
+             lines.pop(int(lineas))
              f = open("ingreso.txt","w")
              for line in lines:
                 f.write(line)
@@ -167,7 +165,7 @@ def gestion(ge,o):
              f = open("ingreso.txt")
              i = 1
              for linea in f:
-                 linea = linea.rstrip("\\n")
+                 linea = linea.split()
                  print(" %4d: %s" %(i, linea))
                  i+=1
              f.close()
@@ -183,7 +181,7 @@ def gestion(ge,o):
             f = open("snacks.txt")
             i = 0
             for linea in f:
-               linea = linea.rstrip("\\n")
+               linea = linea.split()
                print(" %4d: %s" %(i, linea))
                i+=1
             f.close()
@@ -200,7 +198,7 @@ def gestion(ge,o):
                 fg.close()
                 
                 c=0
-                while(c!=cg):
+                while(c!=int(cg)):
                     fg=open("gestion.txt","a+")
                     fs=open("snacks.txt","w")
                     codigo_gestion=str(o)
@@ -214,7 +212,8 @@ def gestion(ge,o):
                     print(cantidad_snacks)
                     cantidad_snacks=int(cantidad_snacks)-1
                     cantidad_snacks=str(cantidad_snacks)
-                    del lines[int(snack_gestion)]
+                    print(cantidad_snacks)
+                    lines.pop(int(snack_gestion))
                     fs.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
                     for lin in lines:
                        fs.writelines(lin)
