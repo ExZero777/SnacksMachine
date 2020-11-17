@@ -34,7 +34,7 @@ totales = [codigo_totales,fecha_totales,horario_totales,gestion_totales,total_to
     
     
     
-def totales(opci):
+def totales(opci,cge):
     ft=open("totales.txt","r")
     line=ft.readlines()
     ft.close()
@@ -44,22 +44,27 @@ def totales(opci):
     
     ft=open("totales.txt","a")
     fg=open("gestion.txt","a")
-    
     print(opci)
-    
     codigo_totales=str(opci)
     fecha_totales=time.strftime("%x")
     horario_totales=time.strftime("%X")
-    lineas2=line2[int(opci)]
-    gestion_totales=lineas2.split(",")[0]
-    print(lineas2)
+   # lineas2=line2[int(opci)]
+   #5  gestion_totales=lineas2.split(",")[0]
+    #print(lineas2)
     cantidad=0
     precio=0
-    totales=0
-    for lin in lineas2:
-       precio=float(lineas2.split(",")[2])
-       cantidad=int(lineas2.split(",")[3])
-    
+    cge=int(cge)
+    lin=0
+    for i in range(0,len(line2)):
+        lin+=1
+    print(lin)
+    for i in range(lin,lin-cge,-1):
+       lineas2=line2[i-1]
+       precio=precio+float(lineas2.split(",")[2])
+       print(precio)
+       cantidad=cantidad+int(lineas2.split(",")[3])
+       
+    gestion_totales=lineas2.split(",")[0]
     print("Ticket, Imprimiendo.....")
     print(codigo_totales)
     print(fecha_totales)
@@ -67,7 +72,7 @@ def totales(opci):
     print(gestion_totales)
     print(cantidad)
     print(precio)
-    total_totales=cantidad*precio;
+    total_totales=precio
     ft.write(codigo_totales+","+fecha_totales+","+horario_totales+","+gestion_totales+","+str(total_totales)+"\n")
     ft.close()
     fg.close()
@@ -190,15 +195,15 @@ def gestion(ge,o):
             if(cg=="0" or cg==""):
                 main()
             else:    
-                fs=open("snacks.txt","r")
-                fg=open("gestion.txt","r")
-                lines = fs.readlines()
-                lines2 = fg.readlines()
-                fs.close()
-                fg.close()
-                
-                c=0
-                while(c!=int(cg)):
+                c=1
+                while(c<=int(cg)):
+                    fs=open("snacks.txt","r")
+                    fg=open("gestion.txt","r")
+                    lines = fs.readlines()
+                    lines2 = fg.readlines()
+                    fs.close()
+                    fg.close()
+                    
                     fg=open("gestion.txt","a+")
                     fs=open("snacks.txt","w")
                     codigo_gestion=str(o)
@@ -214,7 +219,7 @@ def gestion(ge,o):
                     cantidad_snacks=str(cantidad_snacks)
                     print(cantidad_snacks)
                     lines.pop(int(snack_gestion))
-                    fs.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
+                    lines.insert(int(snack_gestion),nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
                     for lin in lines:
                        fs.writelines(lin)
                     fs.close()  
@@ -222,7 +227,7 @@ def gestion(ge,o):
                     fg.close()   
                     c+=1
                 else:
-                    totales(o)    
+                    totales(o,cg)    
         
             
         if(ge==2):
