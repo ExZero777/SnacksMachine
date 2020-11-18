@@ -2,6 +2,7 @@
 # como la administración de stock de la máquina, ingreso de usuarios con sus respectivos permisos e impresión de subtotales
 # y totales consumidos por el usuario 
 import time
+
 # Se crean las estructuras de registro con listas para snacks, ingreso, gestión y totales
 nombre_snacks=""
 cantidad_snacks=""
@@ -35,9 +36,6 @@ totales = [codigo_totales,fecha_totales,horario_totales,gestion_totales,total_to
     
 # Se imprime el ticket con fecha, hora, código usuario, cantidad de artículos y el precio total. Se guardan los datos en archivo totales.txt
 def totales(opci,cge):
-    ft=open("totales.txt","r")
-    line=ft.readlines()
-    ft.close()
     fg=open("gestion.txt","r")
     line2=fg.readlines()
     fg.close()
@@ -141,7 +139,7 @@ def gestion(ge,o):
             apellido_ingreso = input(str("Ingrese El Apellido Del Usuario: "))
             dni_ingreso = input(str("Ingrese El Dni Del Usuario: "))
             permiso_ingreso=input(str("Ingrese El Permiso Del Usuario: "))
-            f.write(codigo_ingreso+","+nombre_ingreso+","+apellido_ingreso+","+dni_ingreso+","+permiso_ingreso+"\n")
+            f.write(codigo_ingreso+"   ,"+nombre_ingreso+","+apellido_ingreso+","+dni_ingreso+","+permiso_ingreso+"\n")
             print("Ingreso Exitoso")
             f.close()
         
@@ -314,7 +312,7 @@ def main():
         print("╚═══════════════════════════════════════════╝"+'\033[0;m')
         opcion = int(input("Ingrese La Opcion Deseada: "))
         if(opcion==1):
-           opcion =0
+           opcion=0
            maquina(opcion)
         else:
            print("Hasta Luego")
