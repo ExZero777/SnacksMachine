@@ -33,7 +33,7 @@ total_totales=""
 totales = [codigo_totales,fecha_totales,horario_totales,gestion_totales,total_totales]    
     
     
-    
+# Se imprime el ticket con fecha, hora, código usuario, cantidad de artículos y el precio total. Se guardan los datos en archivo totales.txt
 def totales(opci,cge):
     ft=open("totales.txt","r")
     line=ft.readlines()
@@ -44,34 +44,37 @@ def totales(opci,cge):
     
     ft=open("totales.txt","a")
     fg=open("gestion.txt","a")
-    print(opci)
     codigo_totales=str(opci)
     fecha_totales=time.strftime("%x")
     horario_totales=time.strftime("%X")
-   # lineas2=line2[int(opci)]
-   #5  gestion_totales=lineas2.split(",")[0]
-    #print(lineas2)
     cantidad=0
     precio=0
     cge=int(cge)
     lin=0
     for i in range(0,len(line2)):
         lin+=1
-    print(lin)
     for i in range(lin,lin-cge,-1):
        lineas2=line2[i-1]
        precio=precio+float(lineas2.split(",")[2])
-       print(precio)
        cantidad=cantidad+int(lineas2.split(",")[3])
        
     gestion_totales=lineas2.split(",")[0]
-    print("Ticket, Imprimiendo.....")
-    print(codigo_totales)
-    print(fecha_totales)
-    print(horario_totales)
-    print(gestion_totales)
-    print(cantidad)
-    print(precio)
+    print("\nTicket, Imprimiendo...\n\n")  
+    print("┌────────────────────────────────┐")
+    print("├───────"+"\033[0;31m"+"    ─ Ticket ─    "+'\033[0;m'+"───────┤")
+    print("├────────────────────────────────┤")
+    print("│                                │")
+    print("│   "+"\033[0;36m"+"Fecha: "+'\033[0;m'+fecha_totales,"             │")
+    print("│   "+"\033[0;36m"+"Hora:  "+'\033[0;m'+horario_totales,"             │")
+    print("│                                │")
+    print("│                                │")
+    print("│  "+"\033[0;36m"+"Codigo Usuario: "+'\033[0;m'+gestion_totales,"            │")
+    print("│  "+"\033[0;36m"+"Unidades:  "+'\033[0;m',cantidad,"                │")
+    print("│  "+"\033[0;36m"+"Precio Total: "+'\033[0;m'+"${0:.2f}".format(precio),"         │")
+    print("│                                │")
+    print("│                                │")
+    print("└────────────────────────────────┘")
+    print("")
     total_totales=precio
     ft.write(codigo_totales+","+fecha_totales+","+horario_totales+","+gestion_totales+","+str(total_totales)+"\n")
     ft.close()
@@ -93,19 +96,22 @@ def gestion(ge,o):
          # Se abre el archivo snacks.txt y el usuario admin puede eliminar cantidad de snack disponibles
          if(ge==2):
             f = open("snacks.txt","r")
-            i = 0   
+            i = 0
+            print("")
+            print("┌───────"+"\033[0;31m"+"Egreso"+'\033[0;m'+"─"+"\033[0;31m"+"De"+'\033[0;m'+"─"+"\033[0;31m"+"Snacks"+'\033[0;m'+"───────┐")
             for aline in f:
                values = aline.split()
-               print(" %4d: %s" %(i, values))
+               print("│ %4d: %s       │" %(i, values))
                i+=1
             f.close()
+            print("└──────────────────────────────┘")
+            print("")
           
             f = open("snacks.txt","r")
             lines = f.readlines()
             f.close()
         
             lineas= int(input("Ingrese El Número De Snack A Borrar!!: "))
-            #del lines[int(lineas)]
             lines.pop(lineas)
             f = open("snacks.txt","w")
             for line in lines:
@@ -142,13 +148,18 @@ def gestion(ge,o):
          #Le permite al usuario admin borrar un usuario del listado 
          if(ge==5):
              f = open("ingreso.txt","r")
-             i = 0   
+             i = 0
+             print("")
+             print("┌───────────────"+"\033[0;31m"+"Eliminar"+'\033[0;m'+"─"+"\033[0;31m"+"Usuarios"+'\033[0;m'+"───────────────┐")
+             print("└──Nro──Cod─────Nom──Apell───DNI───────Tipo─────┘")
              for aline in f:
                 values = aline.split()
                 print(" %4d: %s" %(i, values))
                 i+=1
+             print("")
              f.close()
-       
+
+             
              f = open("ingreso.txt","r")
              lines = f.readlines()
              f.close()
@@ -160,13 +171,16 @@ def gestion(ge,o):
                 f.write(line)
                 print("Borrado Exitoso ")
              else:
-                print("Error,Ingrese Nuevamente El Indice") 
+                print("Error, Ingrese Nuevamente El Indice") 
              f.close()
 
          #Le permite al usuario admin ver el listado de los usuarios existentes
          if(ge==6):
-             print("\033[1;35m"+"\n\t-----"+'\033[0m'+'\033[1m'+"Lista De Usuarios"+'\033[0m'+"\033[1;35m"+"-----"+'\033[0m')
-             print("\033[;35m"+"\t     ═════ ══ ════════     "+'\033[0;m')
+             print("")
+             print("┌───────────────────────────────────────────────┐")
+             print("│"+"\033[0;35m"+"\t   -----"+'\033[0m'+"\033[0;31m"+"Lista De Usuarios"+'\033[0m'+"\033[0;35m"+"-----   \t"+'\033[0m'+"│")
+             print("├───────────────────────────────────────────────┤")
+             print("└──Nro──Cod─────Nom──Apell───DNI───────Tipo─────┘")
              f = open("ingreso.txt")
              i = 1
              for linea in f:
@@ -174,6 +188,7 @@ def gestion(ge,o):
                  print(" %4d: %s" %(i, linea))
                  i+=1
              f.close()
+             print("")
          if(ge==7): 
              main()
         
@@ -181,16 +196,20 @@ def gestion(ge,o):
     # y que luego seleccione el snack que desee llevar
     elif(o>0):
         if(ge==1):
-            print("-----------Snacks------------")
-            print("---Snack--Precio--Cantidad---")
+            print("")
+            print("\033[0;31m"+"▛─────────────────────────────▜")  
+            print("├«««««««««══ "+'\033[0;m'+"Snacks"+"\033[0;31m"+" ══»»»»»»»»»┤")
+            print("├──────────────────────────────┤")
+            print("├────"+'\033[0;m'+"N°"+"\033[0;31m"+"──"+'\033[0;m'+"Snack"+"\033[0;31m"+"─"+'\033[0;m'+"Prec"+"\033[0;31m"+"──"+'\033[0;m'+"Cant"+"\033[0;31m"+"──────┤"+'\033[0;m')
             f = open("snacks.txt")
             i = 0
             for linea in f:
                linea = linea.split()
-               print(" %4d: %s" %(i, linea))
+               print("\033[0;31m"+"│ %4d: %s       │" %(i, linea))
                i+=1
             f.close()
-            print("-----------------------------")
+            print("▙─────────────────────────────▟"+'\033[0;m')
+            print("")
             cg=input("Ingrese La Cantidad De Snacks A Llevar: ")
             if(cg=="0" or cg==""):
                 main()
@@ -214,10 +233,8 @@ def gestion(ge,o):
                     nombre_snacks=lineas.split(",")[0]
                     precio_snacks=lineas.split(",")[1]
                     cantidad_snacks=lineas.split(",")[2]
-                    print(cantidad_snacks)
                     cantidad_snacks=int(cantidad_snacks)-1
                     cantidad_snacks=str(cantidad_snacks)
-                    print(cantidad_snacks)
                     lines.pop(int(snack_gestion))
                     lines.insert(int(snack_gestion),nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
                     for lin in lines:
@@ -246,7 +263,7 @@ def maquina(op):
         print("║"+"\033[0;36m"+" 2-Egreso De Snacks   "+'\033[0;m'+"\033[0;35m"+"║")
         print("║"+"\033[0;36m"+" 3-Ver Snacks         "+'\033[0;m'+"\033[0;35m"+"║")
         print("║"+"\033[0;36m"+" 4-Ingreso De Codigos "+'\033[0;m'+"\033[0;35m"+"║")
-        print("║"+"\033[0;36m"+" 5-Eliminar De Codigos"+'\033[0;m'+"\033[0;35m"+"║")
+        print("║"+"\033[0;36m"+" 5-Eliminar Codigos   "+'\033[0;m'+"\033[0;35m"+"║")
         print("║"+"\033[0;36m"+" 6-Ver Codigos        "+'\033[0;m'+"\033[0;35m"+"║")
         print("║"+"\033[0;36m"+" 7-Salir              "+'\033[0;m'+"\033[0;35m"+"║")
         print("╚══════════════════════╝"+'\033[0;m')
