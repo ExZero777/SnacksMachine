@@ -90,6 +90,7 @@ def gestion(ge,o):
             f.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
             print("Ingreso Exitoso")
             f.close()
+            maquina(o)
     
          # Se abre el archivo snacks.txt y el usuario admin puede eliminar cantidad de snack disponibles
          if(ge==2):
@@ -118,6 +119,7 @@ def gestion(ge,o):
             else:
                print("Error,Ingrese Nuevamente El Indice") 
             f.close()
+            maquina(o)
        
          #El usuario admin puede ingresar y ver el listado de snacks existentes          
          if(ge==3):
@@ -130,6 +132,7 @@ def gestion(ge,o):
                 print(" %4d: %s" %(i, linea))
                 i+=1
             f.close()
+            maquina(o)
                   
          #El usuario admin abre el archivo ingreso.txt y se le permite ingresar un nuevo usuario al mismo
          if(ge==4):
@@ -142,6 +145,7 @@ def gestion(ge,o):
             f.write(codigo_ingreso+"   ,"+nombre_ingreso+","+apellido_ingreso+","+dni_ingreso+","+permiso_ingreso+"\n")
             print("Ingreso Exitoso")
             f.close()
+            maquina(o)
         
          #Le permite al usuario admin borrar un usuario del listado 
          if(ge==5):
@@ -171,7 +175,8 @@ def gestion(ge,o):
              else:
                 print("Error, Ingrese Nuevamente El Indice") 
              f.close()
-
+             maquina(o)
+             
          #Le permite al usuario admin ver el listado de los usuarios existentes
          if(ge==6):
              print("")
@@ -187,6 +192,7 @@ def gestion(ge,o):
                  i+=1
              f.close()
              print("")
+             maquina(o)
          if(ge==7): 
              main()
         
@@ -215,11 +221,8 @@ def gestion(ge,o):
                 c=1
                 while(c<=int(cg)):
                     fs=open("snacks.txt","r")
-                    fg=open("gestion.txt","r")
                     lines = fs.readlines()
-                    lines2 = fg.readlines()
                     fs.close()
-                    fg.close()
                     
                     fg=open("gestion.txt","a+")
                     fs=open("snacks.txt","w")
