@@ -306,7 +306,6 @@ def main():
         opcion = int(input("El Codigo Es Númerico Y Se Lo Tiene Que Proporcionar RR.HH: "))
         maquina(opcion)
     else:
-        print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
         opcion=0
         print("Si Desea Salir Presione 'S' Sino Ingrese Otra Opcion:")
         print("\033[0;35m"+"╔══════════════════"+'\033[0;m'+"Menu"+"\033[0;35m"+"═════════════════════╗")
@@ -315,7 +314,8 @@ def main():
         print("╚═══════════════════════════════════════════╝"+'\033[0;m')
         opcion = int(input("Ingrese La Opcion Deseada: "))
         if(opcion==1):
-           main()
+           opcion =0
+           maquina(opcion)
         else:
            print("Hasta Luego")
            main()
