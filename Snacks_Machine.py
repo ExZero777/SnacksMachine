@@ -81,7 +81,7 @@ def totales(opci,cge):
 
 def gestion(ge,o):
     if(o==0):
-        # El usuario admin genera un ingreso del nuevo snack, con precio y cantidad disponible
+        # El usuario admin genera un ingreso del nuevo snack, con precio y cantidad disponible. Se guardan los datos en archivo snacks.txt
          if(ge==1):
             f = open("snacks.txt","a")
             nombre_snacks = input(str("Ingrese El Nombre Del Snack: "))
@@ -123,18 +123,23 @@ def gestion(ge,o):
        
          #El usuario admin puede ingresar y ver el listado de snacks existentes          
          if(ge==3):
-            print("\033[1;35m"+"\n  -----"+'\033[0m'+'\033[1m'+"Lista De Snacks"+'\033[0m'+"\033[1;35m"+"-----"+'\033[0m')
-            print("\033[;35m"+"       ═════ ══ ══════     "+'\033[0;m')
+            print("")
+            print("┌───────────────────────────┐")
+            print("├─▼─▼─ "+"\033[0;31m"+"Lista De Snacks"+'\033[0;m'+" ─▼─▼─┤")
+            print("├───────────────────────────┤")
+            print("├────N°──Snack─Prec─Cant────┤")
             f = open("snacks.txt")
             i = 1
             for linea in f:
                 linea = linea.split()
-                print(" %4d: %s" %(i, linea))
+                print("│ %4d: %s    │" %(i, linea))
                 i+=1
             f.close()
+            print("└───────────────────────────┘")
+            print("")
             maquina(o)
                   
-         #El usuario admin abre el archivo ingreso.txt y se le permite ingresar un nuevo usuario al mismo
+         #Al usuario admin se le permite ingresar un nuevo usuario al sistema, agregándolo al archivo ingreso.txt
          if(ge==4):
             f = open("ingreso.txt","a")
             codigo_ingreso= input(str("Ingrese El Codigo Del Usuario: "))
@@ -147,7 +152,7 @@ def gestion(ge,o):
             f.close()
             maquina(o)
         
-         #Le permite al usuario admin borrar un usuario del listado 
+         #Le permite al usuario admin borrar un usuario del listado, del archivo ingreso.txt
          if(ge==5):
              f = open("ingreso.txt","r")
              i = 0
@@ -177,7 +182,7 @@ def gestion(ge,o):
              f.close()
              maquina(o)
              
-         #Le permite al usuario admin ver el listado de los usuarios existentes
+         #Le permite al usuario admin ver el listado de los usuarios existentes, en el archivo ingreso.txt
          if(ge==6):
              print("")
              print("┌───────────────────────────────────────────────┐")
@@ -196,8 +201,8 @@ def gestion(ge,o):
          if(ge==7): 
              main()
         
-    # Se crea un menú que le permite al usuario (cliente) ver el listado de snacks disponibles
-    # y que luego seleccione el snack que desee llevar
+    # Se crea un menú que le permite al usuario (cliente) ver el listado de snacks disponibles y que luego seleccione 
+    # el snack que desee llevar. Se guarda en gestion.txt la compra realizada y se modifica en snacks.txt la cantidad disponible
     elif(o>0):
         if(ge==1):
             print("")
@@ -254,7 +259,7 @@ def gestion(ge,o):
         main()    
     
 
-# Ingreso a menú de gestión o al menú para el usuario
+# Ingreso a menú de gestión para el admin o al menú para el usuario
 def maquina(op): 
     ges=0
     # Se crea un menú para que el usuario admin pueda gestionar tanto los snacks
