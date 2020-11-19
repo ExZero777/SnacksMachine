@@ -84,7 +84,7 @@ def gestion(ge,o):
         # El usuario admin genera un ingreso del nuevo snack, con precio y cantidad disponible
          if(ge==1):
             f = open("snacks.txt","a")
-            nombre_snacks = input(str("Ingrese El Nuevo Snack: "))
+            nombre_snacks = input(str("Ingrese El Nombre Del Snack: "))
             precio_snacks = input(str("Ingrese El Precio Del Snack: "))
             cantidad_snacks= input(str("Ingrese La Cantidad Del Snack: "))
             f.write(nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
@@ -115,7 +115,7 @@ def gestion(ge,o):
             f = open("snacks.txt","w")
             for line in lines:
                 f.write(line)
-                print("Borrado Exitoso ")
+                print("Borrado Exitoso")
             else:
                print("Error,Ingrese Nuevamente El Indice") 
             f.close()
@@ -239,7 +239,7 @@ def gestion(ge,o):
                     lines.pop(int(snack_gestion))
                     lines.insert(int(snack_gestion),nombre_snacks+","+precio_snacks+","+cantidad_snacks+"\n")
                     for lin in lines:
-                       fs.writelines(lin)
+                       fs.write(lin)
                     fs.close()  
                     fg.write(codigo_gestion+","+snack_gestion+","+precio_gestion+","+cantidad_gestion+"\n")
                     fg.close()   
@@ -250,7 +250,8 @@ def gestion(ge,o):
             
         if(ge==2):
             main()
-        
+    else:
+        main()    
     
 
 # Ingreso a menú de gestión o al menú para el usuario
@@ -290,9 +291,9 @@ def maquina(op):
                     gestion(ges,op)
                 else:
                     main()
-        else:
-            print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
-         
+            else:
+               print("El Codigo Ingresado Es Incorrecto, Favor De Ingresarlo Nuevamente O Comunicarse Con RR.HH")
+               main()
          
 # Se crea el menú inicial que permite ingresar un código, el cual define si el usuario
 # entra en modo gestión como admin o como cliente para retirar un snack
@@ -308,7 +309,7 @@ def main():
         maquina(opcion)
     else:
         opcion=0
-        print("Si Desea Salir Presione 'S' Sino Ingrese Otra Opcion:")
+        print("Si Desea Volver Al Menu Principal?:")
         print("\033[0;35m"+"╔══════════════════"+'\033[0;m'+"Menu"+"\033[0;35m"+"═════════════════════╗")
         print("║"+"\033[0;36m"+" 1-Volver Al Menu Principal De Opciones    "+'\033[0;m'+"\033[0;35m"+"║")
         print("║"+'\033[0;m'+"\033[0;36m"+" 2-Salir                                   "+'\033[0;m'+"\033[0;35m"+"║")
